@@ -1,0 +1,92 @@
+{
+  "name": "autocmfy",
+  "version": "1.0.0",
+  "description": "ComfyUI Controller",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "dev": "nodemon --watch main.js --watch server.js --exec electron .",
+    "build": "electron-builder"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "electron-store": "^8.2.0",
+    "express": "^4.17.1",
+    "form-data": "^4.0.0",
+    "ws": "^8.2.3"
+  },
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^24.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "build": {
+    "appId": "com.autocmfy.app",
+    "productName": "AUTOcmfy",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "**/*",
+      "!public/image/**",
+      "!image/**"
+    ],
+    "files": [
+      "**/*",
+      {
+        "from": "public/",
+        "to": "./",
+        "filter": ["**/*"]
+      },
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+    ],
+    "extraResources": [
+      {
+        "from": "saved_images",
+        "to": "saved_images"
+      },
+      {
+        "from": "workflow",
+        "to": "workflow"
+      },
+      {
+        "from": "preset",
+        "to": "preset"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/image/ComfyuLOGO.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "public/image/ComfyuLOGO.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "public/image/ComfyuLOGO.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "public/image/ComfyuLOGO.ico",
+      "uninstallerIcon": "public/image/ComfyuLOGO.ico",
+      "installerHeaderIcon": "public/image/ComfyuLOGO.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
